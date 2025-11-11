@@ -34,7 +34,7 @@ class HelixGraphAdapter(GraphDBInterface):
         self.port = int(port)
         self.api_key = api_key
         self.executor = ThreadPoolExecutor()
-        self.client: Any = None
+        self.client: Optional[helix.Client] = None
         self._initialize_client()
 
     def _initialize_client(self) -> None:
@@ -52,9 +52,7 @@ class HelixGraphAdapter(GraphDBInterface):
             mode = "local" if is_local else "remote"
             logger.info(f"HelixDB client initialized: {mode} at {self.url}:{self.port}")
         except ImportError:
-            raise ImportError(
-                "helix-py is not installed. Install with 'pip install cognee[helixdb]'"
-            )
+            raise ImportError("helix-py is not installed")
         except Exception as e:
             logger.error(f"HelixDB init failed: {e}")
             raise EnvironmentError(f"HelixDB connection error: {e}")
