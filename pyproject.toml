@@ -75,6 +75,7 @@ scraping = [
     "APScheduler>=3.10.0,<=3.11.0"
 ]
 
+helixdb = ["helix-py>=0.2.31"]
 neo4j = ["neo4j>=5.28.0,<6"]
 neptune = ["langchain_aws>=0.2.22"]
 postgres = [
