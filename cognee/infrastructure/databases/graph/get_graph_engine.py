@@ -83,7 +83,17 @@ def create_graph_engine(
             graph_database_password=graph_database_password or None,
             graph_database_name=graph_database_name or None,
         )
+    elif graph_database_provider == "helixdb":
+        if not graph_database_url:
+            raise EnvironmentError("Missing required HelixDB URL.")
 
+        from .helixdb.adapter import HelixGraphAdapter
+
+        return HelixGraphAdapter(
+            url=graph_database_url,
+            port=graph_database_port,
+            api_key=graph_database_password,
+        )
     elif graph_database_provider == "kuzu":
         if not graph_file_path:
             raise EnvironmentError("Missing required Kuzu database path.")
