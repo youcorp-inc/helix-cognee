@@ -1,4 +1,44 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  Cognee Vector Queries
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Get all collections
+QUERY CogneeGetCollections () =>
+	collections <- V<CogneeVector>
+	RETURN {collections: collections}
+
+// Get a collection by name
+QUERY CogneeGetCollection (collection_name: String) =>
+  collection <- V<CogneeVector>::WHERE(_::{collection_name}::EQ(collection_name))
+  RETURN {collection: collection}
+
+// Add DataPoint to a collection with a given vector
+QUERY CogneeCreateDataPoint (collection_name: String, vector: [F64], dp_id: String, payload: String, content: String) =>
+	AddV<CogneeVector>(vector, {collection_name: collection_name, data_point_id: dp_id, payload: payload, content: content})
+	RETURN NONE
+
+// Retrieve data points from a collection using their IDs.
+QUERY CogneeRetrieve (collection_name: String, dp_ids: [String]) =>
+	documents <- V<CogneeVector>::WHERE(AND(_::{collection_name}::EQ(collection_name), _::{data_point_id}::IS_IN(dp_ids)))
+	RETURN {documents: documents}
+
+// Perform a search in the specified collection using a vector.
+QUERY CogneeSearch (collection_name: String, vector: [F64], limit: I64) =>
+	result <- SearchV<CogneeVector>(vector, limit)::WHERE(_::{collection_name}::EQ(collection_name))
+	RETURN {result: result}
+
+// Delete specified data points from a collection.
+QUERY CogneeDeleteDataPoints (collection_name: String, dp_ids: [String]) =>
+	DROP V<CogneeVector>::WHERE(AND(_::{collection_name}::EQ(collection_name), _::{data_point_id}::IS_IN(dp_ids)))
+	RETURN NONE
+
+// Delete all collections in the vector database.
+QUERY CogneePruneCollections () =>
+	DROP V<CogneeVector>
+	RETURN NONE
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Cognee Graph Queries
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

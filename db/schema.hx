@@ -1,3 +1,12 @@
+V::CogneeVector {
+	collection_name: String,
+	data_point_id: String,
+	payload: String, // json.dumps(DataPoint) eg. (id as string, created_at, updated_at, ontology_valid, version, topological_rank, type)
+	content: String,
+	created_at: Date DEFAULT NOW,
+	updated_at: Date DEFAULT NOW,
+}
+
 N::CogneeNode {
 	INDEX node_id: String,
 	name: String,
