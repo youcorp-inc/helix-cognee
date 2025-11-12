@@ -131,8 +131,17 @@ def create_vector_engine(
             embedding_engine=embedding_engine,
         )
 
+    elif vector_db_provider.lower() == "helixdb":
+        from .helixdb.HelixDBAdapter import HelixDBAdapter
+
+        return HelixDBAdapter(
+            url=vector_db_url,
+            api_key=vector_db_key,
+            embedding_engine=embedding_engine,
+        )
+
     else:
         raise EnvironmentError(
             f"Unsupported graph database provider: {vector_db_provider}. "
-            f"Supported providers are: {', '.join(list(supported_databases.keys()) + ['LanceDB', 'PGVector', 'neptune_analytics', 'ChromaDB'])}"
+            f"Supported providers are: {', '.join(list(supported_databases.keys()) + ['LanceDB', 'PGVector', 'neptune_analytics', 'ChromaDB', 'HelixDB'])}"
         )
