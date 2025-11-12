@@ -20,7 +20,11 @@ cd helix-congee
 mv helix.toml.bhs helix.toml
 ```
 
-### edit the helix.toml file line 2 `name = "{{project_name}}"` to your project name e.g. `name = "cognee"`
+### add cognee instance 
+
+``` bash
+helix add local --name cognee
+```
 
 ### push the templates
 
