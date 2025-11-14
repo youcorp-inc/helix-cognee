@@ -29,7 +29,7 @@ helix add local --name cognee
 ### push the templates
 
 ``` bash
-helix push {project-name}
+helix push cognee
 ```
 
 
@@ -69,11 +69,16 @@ uv sync --dev --all-extras
 cp .env.template .env
 ```
 
-### config helix as graph adapter ("uncomment lines 105 - 108)
+### config helix as graph adapter (uncomment lines 105 - 108 in .env)
 ```
 #GRAPH_DATABASE_PROVIDER="helixdb"
 #GRAPH_DATABASE_URL=http://localhost
 #GRAPH_DATABASE_PORT=6969
+```
+
+### config helix as vector adapter (line 126 of .env)
+```
+VECTOR_DB_PROVIDER="helixdb"
 ```
 
 ### Add openAI api key for vector search (uncomment line 18)
@@ -81,14 +86,4 @@ cp .env.template .env
 #LLM_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
-### Run the helixdb graph unit test
-
-```bash
-uv run pytest cognee/tests/unit/infrastructure/databases/graph/test_helixdb.py
-```
-
-### Run the helixdb graph integration test
-
-```bash
-uv run python cognee/tests/test_helixdb.py
-```
+Now helix is ready to be used as the cognee backend
