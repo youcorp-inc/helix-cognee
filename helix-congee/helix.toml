@@ -1,0 +1,12 @@
+[project]
+name = "congee"
+queries = "./db/"
+
+[local.cognee]
+build_mode = "debug"
+
+[local.dev]
+port = 6969
+build_mode = "debug"
+
+[cloud]

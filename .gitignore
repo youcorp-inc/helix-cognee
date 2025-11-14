@@ -6,6 +6,7 @@ cognee/.data/
 
 code_pipeline_output*/
 
+.helix
 *.lance/
 .DS_Store
 # Byte-compiled / optimized / DLL files
