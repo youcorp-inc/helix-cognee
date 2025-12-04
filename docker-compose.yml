@@ -169,10 +169,10 @@ services:
       - LOG_LEVEL=ERROR
       # HelixDB configuration for graph and vector databases
       - GRAPH_DATABASE_PROVIDER=helixdb
-      - GRAPH_DATABASE_URL=http://host.docker.internal
+      - GRAPH_DATABASE_URL=http://localhost
       - GRAPH_DATABASE_PORT=6969
       - VECTOR_DB_PROVIDER=helixdb
-      - VECTOR_DB_URL=http://host.docker.internal:6969
+      - VECTOR_DB_URL=http://localhost:6969
     extra_hosts:
       # Allows the container to reach your local machine using "host.docker.internal" instead of "localhost"
       - "host.docker.internal:host-gateway"
