@@ -119,8 +119,13 @@ class HealthChecker:
 
             # Test basic operation with actual graph query
             if hasattr(engine, "query"):
-                # For other graph engines
-                await engine.query("MATCH () RETURN count(*) LIMIT 1", {})
+                # For HelixDB, use named queries instead of raw Cypher
+                # For other graph engines, use raw Cypher
+                if config.graph_database_provider == "helixdb":
+                    # Use a simple named query for health check
+                    await engine.query("CogneeGetGraphData", {})
+                else:
+                    await engine.query("MATCH () RETURN count(*) LIMIT 1", {})
             # If engine exists but no test method, consider it healthy
 
             response_time = int((time.time() - start_time) * 1000)

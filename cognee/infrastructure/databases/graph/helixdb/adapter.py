@@ -2,6 +2,7 @@ import asyncio
 import json
 from concurrent.futures import ThreadPoolExecutor
 from typing import Any, Dict, List, Optional, Tuple, Type, Union
+from urllib.parse import urlparse, urlunparse
 
 import helix
 from helix.client import HelixNoValueFoundError
@@ -39,14 +40,38 @@ class HelixGraphAdapter(GraphDBInterface):
 
     def _initialize_client(self) -> None:
         try:
-            is_local = not self.api_key or any(
-                host in (self.url or "").lower() for host in ["127.0.0.1", "localhost"]
-            )
+            url_lower = (self.url or "").lower()
+            # Check if URL contains host.docker.internal - if so, always treat as remote
+            is_docker_host = "host.docker.internal" in url_lower
+            
+            # Determine if connection is local:
+            # - If host.docker.internal, always remote (even without api_key)
+            # - Otherwise, local only if no api_key AND URL contains localhost/127.0.0.1
+            if is_docker_host:
+                is_local = False
+            else:
+                is_local = not self.api_key and any(
+                    host in url_lower for host in ["127.0.0.1", "localhost"]
+                )
+
+            # When remote, construct full URL with port if not already included
+            if not is_local:
+                parsed = urlparse(self.url)
+                # If port is not in URL, add it
+                if not parsed.port and self.port:
+                    netloc = f"{parsed.hostname}:{self.port}" if parsed.hostname else f":{self.port}"
+                else:
+                    netloc = parsed.netloc
+                # Ensure api_endpoint is just the base URL (scheme + netloc) without path
+                # The helix client will append paths/queries, so we need a clean base URL
+                api_endpoint = urlunparse((parsed.scheme, netloc, "", "", "", ""))
+            else:
+                api_endpoint = None
 
             self.client = helix.Client(
                 local=is_local,
                 port=self.port,
-                **({} if is_local else {"api_endpoint": self.url, "api_key": self.api_key}),
+                **({} if is_local else {"api_endpoint": api_endpoint, "api_key": self.api_key}),
             )
 
             mode = "local" if is_local else "remote"
