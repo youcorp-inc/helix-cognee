@@ -152,6 +152,39 @@ services:
     networks:
       - cognee-network
 
+  helix-cognee:
+    container_name: cognee
+    networks:
+      - cognee-network
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./cognee:/app/cognee
+      - .env:/app/.env
+    environment:
+      - DEBUG=false # Change to true if debugging
+      - HOST=0.0.0.0
+      - ENVIRONMENT=local
+      - LOG_LEVEL=ERROR
+      # HelixDB configuration for graph and vector databases
+      - GRAPH_DATABASE_PROVIDER=helixdb
+      - GRAPH_DATABASE_URL=http://host.docker.internal
+      - GRAPH_DATABASE_PORT=6969
+      - VECTOR_DB_PROVIDER=helixdb
+      - VECTOR_DB_URL=http://host.docker.internal:6969
+    extra_hosts:
+      # Allows the container to reach your local machine using "host.docker.internal" instead of "localhost"
+      - "host.docker.internal:host-gateway"
+    ports:
+      - 8000:8000
+      - 5678:5678 # Debugger port
+    deploy:
+      resources:
+        limits:
+          cpus: "4.0"
+          memory: 8GB
+
 
 networks:
   cognee-network:
