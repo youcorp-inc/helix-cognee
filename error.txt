@@ -1,0 +1,575 @@
+Attaching to helix-cognee
+helix-cognee  | 
+helix-cognee  | 2025-12-04T11:22:10.381326 [error    ] HelixDB init failed: [HELIX] No helix server found at 'http://127.0.0.1:6969' [HelixDBAdapter]
+helix-cognee  | 
+helix-cognee  | 2025-12-04T11:22:10.385182 [error    ] Vector DB health check failed: HelixDB connection error: [HELIX] No helix server found at 'http://127.0.0.1:6969' [cognee.shared.logging_utils] exception_message="HelixDB connection error: \x1b[31m[HELIX]\x1b[0m No helix server found at 'http://127.0.0.1:6969'" traceback=True
+helix-cognee  | ╭─────────────────────────────── Traceback (most recent call last) ────────────────────────────────╮
+helix-cognee  | │ /app/.venv/lib/python3.12/site-packages/helix/client.py:79 in __init__                           │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │    76 │   │   if local:                                                                          │
+helix-cognee  | │    77 │   │   │   try:                                                                           │
+helix-cognee  | │    78 │   │   │   │   hostname = self.h_server_url.replace("http://", "").replace("https://",    │
+helix-cognee  | │ ❱  79 │   │   │   │   socket.create_connection((hostname, self.h_server_port), timeout=5)        │
+helix-cognee  | │    80 │   │   │   │   print(f"{GHELIX} Helix instance found at '{self.h_server_url}:{self.h_se   │
+helix-cognee  | │    81 │   │   │   except socket.error:                                                           │
+helix-cognee  | │    82 │   │   │   │   raise Exception(f"{RHELIX} No helix server found at '{self.h_server_url}   │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │ ╭─────────────────────────── locals ────────────────────────────╮                                │
+helix-cognee  | │ │ api_endpoint = ''                                             │                                │
+helix-cognee  | │ │      api_key = None                                           │                                │
+helix-cognee  | │ │     hostname = '127.0.0.1'                                    │                                │
+helix-cognee  | │ │        local = True                                           │                                │
+helix-cognee  | │ │  max_workers = 1                                              │                                │
+helix-cognee  | │ │         port = 6969                                           │                                │
+helix-cognee  | │ │         self = <helix.client.Client object at 0xffff7ff39820> │                                │
+helix-cognee  | │ │      verbose = True                                           │                                │
+helix-cognee  | │ ╰───────────────────────────────────────────────────────────────╯                                │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │ /usr/local/lib/python3.12/socket.py:865 in create_connection                                     │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │   862 │   if len(exceptions):                                                                    │
+helix-cognee  | │   863 │   │   try:                                                                               │
+helix-cognee  | │   864 │   │   │   if not all_errors:                                                             │
+helix-cognee  | │ ❱ 865 │   │   │   │   raise exceptions[0]                                                        │
+helix-cognee  | │   866 │   │   │   raise ExceptionGroup("create_connection failed", exceptions)                   │
+helix-cognee  | │   867 │   │   finally:                                                                           │
+helix-cognee  | │   868 │   │   │   # Break explicitly a reference cycle                                           │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │ ╭────────────────────────────────── locals ──────────────────────────────────╮                   │
+helix-cognee  | │ │        address = ('127.0.0.1', 6969)                                       │                   │
+helix-cognee  | │ │             af = <AddressFamily.AF_INET: 2>                                │                   │
+helix-cognee  | │ │     all_errors = False                                                     │                   │
+helix-cognee  | │ │      canonname = ''                                                        │                   │
+helix-cognee  | │ │     exceptions = []                                                        │                   │
+helix-cognee  | │ │           host = '127.0.0.1'                                               │                   │
+helix-cognee  | │ │           port = 6969                                                      │                   │
+helix-cognee  | │ │          proto = 6                                                         │                   │
+helix-cognee  | │ │            res = (                                                         │                   │
+helix-cognee  | │ │                  │   <AddressFamily.AF_INET: 2>,                           │                   │
+helix-cognee  | │ │                  │   <SocketKind.SOCK_STREAM: 1>,                          │                   │
+helix-cognee  | │ │                  │   6,                                                    │                   │
+helix-cognee  | │ │                  │   '',                                                   │                   │
+helix-cognee  | │ │                  │   ('127.0.0.1', 6969)                                   │                   │
+helix-cognee  | │ │                  )                                                         │                   │
+helix-cognee  | │ │             sa = ('127.0.0.1', 6969)                                       │                   │
+helix-cognee  | │ │           sock = <socket.socket [closed] fd=-1, family=2, type=1, proto=6> │                   │
+helix-cognee  | │ │       socktype = <SocketKind.SOCK_STREAM: 1>                               │                   │
+helix-cognee  | │ │ source_address = None                                                      │                   │
+helix-cognee  | │ │        timeout = 5                                                         │                   │
+helix-cognee  | │ ╰────────────────────────────────────────────────────────────────────────────╯                   │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │ /usr/local/lib/python3.12/socket.py:850 in create_connection                                     │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │   847 │   │   │   │   sock.settimeout(timeout)                                                   │
+helix-cognee  | │   848 │   │   │   if source_address:                                                             │
+helix-cognee  | │   849 │   │   │   │   sock.bind(source_address)                                                  │
+helix-cognee  | │ ❱ 850 │   │   │   sock.connect(sa)                                                               │
+helix-cognee  | │   851 │   │   │   # Break explicitly a reference cycle                                           │
+helix-cognee  | │   852 │   │   │   exceptions.clear()                                                             │
+helix-cognee  | │   853 │   │   │   return sock                                                                    │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │ ╭────────────────────────────────── locals ──────────────────────────────────╮                   │
+helix-cognee  | │ │        address = ('127.0.0.1', 6969)                                       │                   │
+helix-cognee  | │ │             af = <AddressFamily.AF_INET: 2>                                │                   │
+helix-cognee  | │ │     all_errors = False                                                     │                   │
+helix-cognee  | │ │      canonname = ''                                                        │                   │
+helix-cognee  | │ │     exceptions = []                                                        │                   │
+helix-cognee  | │ │           host = '127.0.0.1'                                               │                   │
+helix-cognee  | │ │           port = 6969                                                      │                   │
+helix-cognee  | │ │          proto = 6                                                         │                   │
+helix-cognee  | │ │            res = (                                                         │                   │
+helix-cognee  | │ │                  │   <AddressFamily.AF_INET: 2>,                           │                   │
+helix-cognee  | │ │                  │   <SocketKind.SOCK_STREAM: 1>,                          │                   │
+helix-cognee  | │ │                  │   6,                                                    │                   │
+helix-cognee  | │ │                  │   '',                                                   │                   │
+helix-cognee  | │ │                  │   ('127.0.0.1', 6969)                                   │                   │
+helix-cognee  | │ │                  )                                                         │                   │
+helix-cognee  | │ │             sa = ('127.0.0.1', 6969)                                       │                   │
+helix-cognee  | │ │           sock = <socket.socket [closed] fd=-1, family=2, type=1, proto=6> │                   │
+helix-cognee  | │ │       socktype = <SocketKind.SOCK_STREAM: 1>                               │                   │
+helix-cognee  | │ │ source_address = None                                                      │                   │
+helix-cognee  | │ │        timeout = 5                                                         │                   │
+helix-cognee  | │ ╰────────────────────────────────────────────────────────────────────────────╯                   │
+helix-cognee  | ╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
+helix-cognee  | ConnectionRefusedError: [Errno 111] Connection refused
+helix-cognee  | 
+helix-cognee  | During handling of the above exception, another exception occurred:
+helix-cognee  | 
+helix-cognee  | ╭─────────────────────────────── Traceback (most recent call last) ────────────────────────────────╮
+helix-cognee  | │ /app/cognee/infrastructure/databases/vector/helixdb/HelixDBAdapter.py:60 in                      │
+helix-cognee  | │ _initialize_connection                                                                           │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │    57 │   │   │   else:                                                                          │
+helix-cognee  | │    58 │   │   │   │   api_endpoint = None                                                        │
+helix-cognee  | │    59 │   │   │                                                                                  │
+helix-cognee  | │ ❱  60 │   │   │   self.connection = helix.Client(                                                │
+helix-cognee  | │    61 │   │   │   │   local=is_local,                                                            │
+helix-cognee  | │    62 │   │   │   │   port=port,                                                                 │
+helix-cognee  | │    63 │   │   │   │   **({} if is_local else {"api_endpoint": api_endpoint, "api_key": self.ap   │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │ ╭─────────────────────────────────────────── locals ───────────────────────────────────────────╮ │
+helix-cognee  | │ │ api_endpoint = None                                                                          │ │
+helix-cognee  | │ │     is_local = True                                                                          │ │
+helix-cognee  | │ │   parsed_url = ParseResult(                                                                  │ │
+helix-cognee  | │ │                │   scheme='http',                                                            │ │
+helix-cognee  | │ │                │   netloc='host.docker.internal:6969',                                       │ │
+helix-cognee  | │ │                │   path='',                                                                  │ │
+helix-cognee  | │ │                │   params='',                                                                │ │
+helix-cognee  | │ │                │   query='',                                                                 │ │
+helix-cognee  | │ │                │   fragment=''                                                               │ │
+helix-cognee  | │ │                )                                                                             │ │
+helix-cognee  | │ │         port = 6969                                                                          │ │
+helix-cognee  | │ │         self = <cognee.infrastructure.databases.vector.helixdb.HelixDBAdapter.HelixDBAdapter │ │
+helix-cognee  | │ │                object at 0xffff871c2cc0>                                                     │ │
+helix-cognee  | │ ╰──────────────────────────────────────────────────────────────────────────────────────────────╯ │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │ /app/.venv/lib/python3.12/site-packages/helix/client.py:82 in __init__                           │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │    79 │   │   │   │   socket.create_connection((hostname, self.h_server_port), timeout=5)        │
+helix-cognee  | │    80 │   │   │   │   print(f"{GHELIX} Helix instance found at '{self.h_server_url}:{self.h_se   │
+helix-cognee  | │    81 │   │   │   except socket.error:                                                           │
+helix-cognee  | │ ❱  82 │   │   │   │   raise Exception(f"{RHELIX} No helix server found at '{self.h_server_url}   │
+helix-cognee  | │    83 │                                                                                          │
+helix-cognee  | │    84 │   def _construct_full_url(self, endpoint: str) -> str:                                   │
+helix-cognee  | │    85 │   │   if self.local:                                                                     │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │ ╭─────────────────────────── locals ────────────────────────────╮                                │
+helix-cognee  | │ │ api_endpoint = ''                                             │                                │
+helix-cognee  | │ │      api_key = None                                           │                                │
+helix-cognee  | │ │     hostname = '127.0.0.1'                                    │                                │
+helix-cognee  | │ │        local = True                                           │                                │
+helix-cognee  | │ │  max_workers = 1                                              │                                │
+helix-cognee  | │ │         port = 6969                                           │                                │
+helix-cognee  | │ │         self = <helix.client.Client object at 0xffff7ff39820> │                                │
+helix-cognee  | │ │      verbose = True                                           │                                │
+helix-cognee  | │ ╰───────────────────────────────────────────────────────────────╯                                │
+helix-cognee  | ╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
+helix-cognee  | Exception: [31m[HELIX][0m No helix server found at 'http://127.0.0.1:6969'
+helix-cognee  | 
+helix-cognee  | During handling of the above exception, another exception occurred:
+helix-cognee  | 
+helix-cognee  | ╭─────────────────────────────── Traceback (most recent call last) ────────────────────────────────╮
+helix-cognee  | │ /app/cognee/api/health.py:84 in check_vector_db                                                  │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │    81 │   │   │   from cognee.infrastructure.databases.vector.config import get_vectordb_confi   │
+helix-cognee  | │    82 │   │   │                                                                                  │
+helix-cognee  | │    83 │   │   │   config = get_vectordb_config()                                                 │
+helix-cognee  | │ ❱  84 │   │   │   engine = get_vector_engine()                                                   │
+helix-cognee  | │    85 │   │   │                                                                                  │
+helix-cognee  | │    86 │   │   │   # Test basic operation - just check if engine is accessible                    │
+helix-cognee  | │    87 │   │   │   if hasattr(engine, "health_check"):                                            │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │ ╭─────────────────────────────────────────── locals ───────────────────────────────────────────╮ │
+helix-cognee  | │ │              config = VectorConfig(                                                          │ │
+helix-cognee  | │ │                       │   vector_db_url='http://host.docker.internal:6969',                  │ │
+helix-cognee  | │ │                       │   vector_db_port=1234,                                               │ │
+helix-cognee  | │ │                       │   vector_db_key='',                                                  │ │
+helix-cognee  | │ │                       │   vector_db_provider='helixdb',                                      │ │
+helix-cognee  | │ │                       │   structured_output_framework='instructor',                          │ │
+helix-cognee  | │ │                       │                                                                      │ │
+helix-cognee  | │ │                       llm_api_key='sk-proj-IVayjXoh2p3V0Vrom3rxhpIpZnOwLy8V3YaX7jU9L24B3vDS… │ │
+helix-cognee  | │ │                       │   llm_model='openai/gpt-5-mini',                                     │ │
+helix-cognee  | │ │                       │   llm_provider='openai',                                             │ │
+helix-cognee  | │ │                       │   llm_max_tokens='16384',                                            │ │
+helix-cognee  | │ │                       │   embedding_provider='openai',                                       │ │
+helix-cognee  | │ │                       │   embedding_model='openai/text-embedding-3-large',                   │ │
+helix-cognee  | │ │                       │   embedding_dimensions='3072',                                       │ │
+helix-cognee  | │ │                       │   embedding_max_tokens='8191',                                       │ │
+helix-cognee  | │ │                       │   embedding_batch_size='36',                                         │ │
+helix-cognee  | │ │                       │   baml_llm_provider='openai',                                        │ │
+helix-cognee  | │ │                       │   baml_llm_model='gpt-5-mini',                                       │ │
+helix-cognee  | │ │                       │   baml_llm_api_key='your_api_key',                                   │ │
+helix-cognee  | │ │                       │   db_provider='sqlite',                                              │ │
+helix-cognee  | │ │                       │   db_name='cognee_db',                                               │ │
+helix-cognee  | │ │                       │   graph_database_provider='helixdb',                                 │ │
+helix-cognee  | │ │                       │   graph_database_url='http://host.docker.internal',                  │ │
+helix-cognee  | │ │                       │   graph_database_port='6969',                                        │ │
+helix-cognee  | │ │                       │   migration_db_path='/path/to/migration/directory',                  │ │
+helix-cognee  | │ │                       │   migration_db_name='migration_database.sqlite',                     │ │
+helix-cognee  | │ │                       │   migration_db_provider='sqlite',                                    │ │
+helix-cognee  | │ │                       │   accept_local_file_path='True',                                     │ │
+helix-cognee  | │ │                       │   allow_http_requests='True',                                        │ │
+helix-cognee  | │ │                       │   allow_cypher_query='True',                                         │ │
+helix-cognee  | │ │                       │   raise_incremental_loading_errors='True',                           │ │
+helix-cognee  | │ │                       │   require_authentication='False',                                    │ │
+helix-cognee  | │ │                       │   enable_backend_access_control='False',                             │ │
+helix-cognee  | │ │                       │   cognee_cloud_api_url='http://localhost:8001',                      │ │
+helix-cognee  | │ │                       │   cognee_cloud_auth_token='your-api-key',                            │ │
+helix-cognee  | │ │                       │   ui_app_url='http://localhost:3000',                                │ │
+helix-cognee  | │ │                       │   env='local',                                                       │ │
+helix-cognee  | │ │                       │   tokenizers_parallelism='false',                                    │ │
+helix-cognee  | │ │                       │   litellm_log='ERROR'                                                │ │
+helix-cognee  | │ │                       )                                                                      │ │
+helix-cognee  | │ │                   e = OSError("HelixDB connection error: \x1b[31m[HELIX]\x1b[0m No helix     │ │
+helix-cognee  | │ │                       server found at 'http://127.0.0.1:6969'")                              │ │
+helix-cognee  | │ │ get_vectordb_config = <functools._lru_cache_wrapper object at 0xffffa5f43b60>                │ │
+helix-cognee  | │ │       response_time = 7                                                                      │ │
+helix-cognee  | │ │                self = <cognee.api.health.HealthChecker object at 0xffff899151c0>             │ │
+helix-cognee  | │ │          start_time = 1764847330.3773103                                                     │ │
+helix-cognee  | │ ╰──────────────────────────────────────────────────────────────────────────────────────────────╯ │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │ /app/cognee/infrastructure/databases/vector/get_vector_engine.py:7 in get_vector_engine          │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │   4                                                                                              │
+helix-cognee  | │   5 def get_vector_engine():                                                                     │
+helix-cognee  | │   6 │   # Get appropriate vector db configuration based on current async context                 │
+helix-cognee  | │ ❱ 7 │   return create_vector_engine(**get_vectordb_context_config())                             │
+helix-cognee  | │   8                                                                                              │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │ /app/cognee/infrastructure/databases/vector/create_vector_engine.py:137 in create_vector_engine  │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │   134 │   elif vector_db_provider.lower() == "helixdb":                                          │
+helix-cognee  | │   135 │   │   from .helixdb.HelixDBAdapter import HelixDBAdapter                                 │
+helix-cognee  | │   136 │   │                                                                                      │
+helix-cognee  | │ ❱ 137 │   │   return HelixDBAdapter(                                                             │
+helix-cognee  | │   138 │   │   │   url=vector_db_url,                                                             │
+helix-cognee  | │   139 │   │   │   api_key=vector_db_key,                                                         │
+helix-cognee  | │   140 │   │   │   embedding_engine=embedding_engine,                                             │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │ ╭─────────────────────────────────────────── locals ───────────────────────────────────────────╮ │
+helix-cognee  | │ │   embedding_engine = <cognee.infrastructure.databases.vector.embeddings.LiteLLMEmbeddingEng… │ │
+helix-cognee  | │ │                      object at 0xffff88504aa0>                                               │ │
+helix-cognee  | │ │      vector_db_key = ''                                                                      │ │
+helix-cognee  | │ │     vector_db_port = 1234                                                                    │ │
+helix-cognee  | │ │ vector_db_provider = 'helixdb'                                                               │ │
+helix-cognee  | │ │      vector_db_url = 'http://host.docker.internal:6969'                                      │ │
+helix-cognee  | │ ╰──────────────────────────────────────────────────────────────────────────────────────────────╯ │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │ /app/cognee/infrastructure/databases/vector/helixdb/HelixDBAdapter.py:38 in __init__             │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │    35 │   │   self.url = url                                                                     │
+helix-cognee  | │    36 │   │   self.api_key = api_key                                                             │
+helix-cognee  | │    37 │   │   self.executor = ThreadPoolExecutor()                                               │
+helix-cognee  | │ ❱  38 │   │   self._initialize_connection()                                                      │
+helix-cognee  | │    39 │                                                                                          │
+helix-cognee  | │    40 │   def _initialize_connection(self) -> None:                                              │
+helix-cognee  | │    41 │   │   try:                                                                               │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │ ╭─────────────────────────────────────────── locals ───────────────────────────────────────────╮ │
+helix-cognee  | │ │          api_key = ''                                                                        │ │
+helix-cognee  | │ │ embedding_engine = <cognee.infrastructure.databases.vector.embeddings.LiteLLMEmbeddingEngin… │ │
+helix-cognee  | │ │                    object at 0xffff88504aa0>                                                 │ │
+helix-cognee  | │ │             self = <cognee.infrastructure.databases.vector.helixdb.HelixDBAdapter.HelixDBAd… │ │
+helix-cognee  | │ │                    object at 0xffff871c2cc0>                                                 │ │
+helix-cognee  | │ │              url = 'http://host.docker.internal:6969'                                        │ │
+helix-cognee  | │ ╰──────────────────────────────────────────────────────────────────────────────────────────────╯ │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │ /app/cognee/infrastructure/databases/vector/helixdb/HelixDBAdapter.py:72 in                      │
+helix-cognee  | │ _initialize_connection                                                                           │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │    69 │   │   │   raise ImportError("helix-py is not installed")                                 │
+helix-cognee  | │    70 │   │   except Exception as e:                                                             │
+helix-cognee  | │    71 │   │   │   logger.error(f"HelixDB init failed: {e}")                                      │
+helix-cognee  | │ ❱  72 │   │   │   raise EnvironmentError(f"HelixDB connection error: {e}")                       │
+helix-cognee  | │    73 │                                                                                          │
+helix-cognee  | │    74 │   async def _query(self, query_name: str, params: dict):                                 │
+helix-cognee  | │    75 │   │   """                                                                                │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │ ╭─────────────────────────────────────────── locals ───────────────────────────────────────────╮ │
+helix-cognee  | │ │ api_endpoint = None                                                                          │ │
+helix-cognee  | │ │     is_local = True                                                                          │ │
+helix-cognee  | │ │   parsed_url = ParseResult(                                                                  │ │
+helix-cognee  | │ │                │   scheme='http',                                                            │ │
+helix-cognee  | │ │                │   netloc='host.docker.internal:6969',                                       │ │
+helix-cognee  | │ │                │   path='',                                                                  │ │
+helix-cognee  | │ │                │   params='',                                                                │ │
+helix-cognee  | │ │                │   query='',                                                                 │ │
+helix-cognee  | │ │                │   fragment=''                                                               │ │
+helix-cognee  | │ │                )                                                                             │ │
+helix-cognee  | │ │         port = 6969                                                                          │ │
+helix-cognee  | │ │         self = <cognee.infrastructure.databases.vector.helixdb.HelixDBAdapter.HelixDBAdapter │ │
+helix-cognee  | │ │                object at 0xffff871c2cc0>                                                     │ │
+helix-cognee  | │ ╰──────────────────────────────────────────────────────────────────────────────────────────────╯ │
+helix-cognee  | ╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
+helix-cognee  | OSError: HelixDB connection error: [31m[HELIX][0m No helix server found at 'http://127.0.0.1:6969'
+helix-cognee  | 
+helix-cognee  | 
+helix-cognee  | 2025-12-04T11:22:10.535421 [error    ] HelixDB init failed: [HELIX] No helix server found at 'http://127.0.0.1:6969' [cognee.shared.logging_utils]
+helix-cognee  | 
+helix-cognee  | 2025-12-04T11:22:10.535539 [error    ] Graph DB health check failed: HelixDB connection error: [HELIX] No helix server found at 'http://127.0.0.1:6969' [cognee.shared.logging_utils] exception_message="HelixDB connection error: \x1b[31m[HELIX]\x1b[0m No helix server found at 'http://127.0.0.1:6969'" traceback=True
+helix-cognee  | ╭─────────────────────────────── Traceback (most recent call last) ────────────────────────────────╮
+helix-cognee  | │ /app/.venv/lib/python3.12/site-packages/helix/client.py:79 in __init__                           │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │    76 │   │   if local:                                                                          │
+helix-cognee  | │    77 │   │   │   try:                                                                           │
+helix-cognee  | │    78 │   │   │   │   hostname = self.h_server_url.replace("http://", "").replace("https://",    │
+helix-cognee  | │ ❱  79 │   │   │   │   socket.create_connection((hostname, self.h_server_port), timeout=5)        │
+helix-cognee  | │    80 │   │   │   │   print(f"{GHELIX} Helix instance found at '{self.h_server_url}:{self.h_se   │
+helix-cognee  | │    81 │   │   │   except socket.error:                                                           │
+helix-cognee  | │    82 │   │   │   │   raise Exception(f"{RHELIX} No helix server found at '{self.h_server_url}   │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │ ╭─────────────────────────── locals ────────────────────────────╮                                │
+helix-cognee  | │ │ api_endpoint = ''                                             │                                │
+helix-cognee  | │ │      api_key = None                                           │                                │
+helix-cognee  | │ │     hostname = '127.0.0.1'                                    │                                │
+helix-cognee  | │ │        local = True                                           │                                │
+helix-cognee  | │ │  max_workers = 1                                              │                                │
+helix-cognee  | │ │         port = 6969                                           │                                │
+helix-cognee  | │ │         self = <helix.client.Client object at 0xffff7f18b500> │                                │
+helix-cognee  | │ │      verbose = True                                           │                                │
+helix-cognee  | │ ╰───────────────────────────────────────────────────────────────╯                                │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │ /usr/local/lib/python3.12/socket.py:865 in create_connection                                     │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │   862 │   if len(exceptions):                                                                    │
+helix-cognee  | │   863 │   │   try:                                                                               │
+helix-cognee  | │   864 │   │   │   if not all_errors:                                                             │
+helix-cognee  | │ ❱ 865 │   │   │   │   raise exceptions[0]                                                        │
+helix-cognee  | │   866 │   │   │   raise ExceptionGroup("create_connection failed", exceptions)                   │
+helix-cognee  | │   867 │   │   finally:                                                                           │
+helix-cognee  | │   868 │   │   │   # Break explicitly a reference cycle                                           │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │ ╭────────────────────────────────── locals ──────────────────────────────────╮                   │
+helix-cognee  | │ │        address = ('127.0.0.1', 6969)                                       │                   │
+helix-cognee  | │ │             af = <AddressFamily.AF_INET: 2>                                │                   │
+helix-cognee  | │ │     all_errors = False                                                     │                   │
+helix-cognee  | │ │      canonname = ''                                                        │                   │
+helix-cognee  | │ │     exceptions = []                                                        │                   │
+helix-cognee  | │ │           host = '127.0.0.1'                                               │                   │
+helix-cognee  | │ │           port = 6969                                                      │                   │
+helix-cognee  | │ │          proto = 6                                                         │                   │
+helix-cognee  | │ │            res = (                                                         │                   │
+helix-cognee  | │ │                  │   <AddressFamily.AF_INET: 2>,                           │                   │
+helix-cognee  | │ │                  │   <SocketKind.SOCK_STREAM: 1>,                          │                   │
+helix-cognee  | │ │                  │   6,                                                    │                   │
+helix-cognee  | │ │                  │   '',                                                   │                   │
+helix-cognee  | │ │                  │   ('127.0.0.1', 6969)                                   │                   │
+helix-cognee  | │ │                  )                                                         │                   │
+helix-cognee  | │ │             sa = ('127.0.0.1', 6969)                                       │                   │
+helix-cognee  | │ │           sock = <socket.socket [closed] fd=-1, family=2, type=1, proto=6> │                   │
+helix-cognee  | │ │       socktype = <SocketKind.SOCK_STREAM: 1>                               │                   │
+helix-cognee  | │ │ source_address = None                                                      │                   │
+helix-cognee  | │ │        timeout = 5                                                         │                   │
+helix-cognee  | │ ╰────────────────────────────────────────────────────────────────────────────╯                   │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │ /usr/local/lib/python3.12/socket.py:850 in create_connection                                     │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │   847 │   │   │   │   sock.settimeout(timeout)                                                   │
+helix-cognee  | │   848 │   │   │   if source_address:                                                             │
+helix-cognee  | │   849 │   │   │   │   sock.bind(source_address)                                                  │
+helix-cognee  | │ ❱ 850 │   │   │   sock.connect(sa)                                                               │
+helix-cognee  | │   851 │   │   │   # Break explicitly a reference cycle                                           │
+helix-cognee  | │   852 │   │   │   exceptions.clear()                                                             │
+helix-cognee  | │   853 │   │   │   return sock                                                                    │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │ ╭────────────────────────────────── locals ──────────────────────────────────╮                   │
+helix-cognee  | │ │        address = ('127.0.0.1', 6969)                                       │                   │
+helix-cognee  | │ │             af = <AddressFamily.AF_INET: 2>                                │                   │
+helix-cognee  | │ │     all_errors = False                                                     │                   │
+helix-cognee  | │ │      canonname = ''                                                        │                   │
+helix-cognee  | │ │     exceptions = []                                                        │                   │
+helix-cognee  | │ │           host = '127.0.0.1'                                               │                   │
+helix-cognee  | │ │           port = 6969                                                      │                   │
+helix-cognee  | │ │          proto = 6                                                         │                   │
+helix-cognee  | │ │            res = (                                                         │                   │
+helix-cognee  | │ │                  │   <AddressFamily.AF_INET: 2>,                           │                   │
+helix-cognee  | │ │                  │   <SocketKind.SOCK_STREAM: 1>,                          │                   │
+helix-cognee  | │ │                  │   6,                                                    │                   │
+helix-cognee  | │ │                  │   '',                                                   │                   │
+helix-cognee  | │ │                  │   ('127.0.0.1', 6969)                                   │                   │
+helix-cognee  | │ │                  )                                                         │                   │
+helix-cognee  | │ │             sa = ('127.0.0.1', 6969)                                       │                   │
+helix-cognee  | │ │           sock = <socket.socket [closed] fd=-1, family=2, type=1, proto=6> │                   │
+helix-cognee  | │ │       socktype = <SocketKind.SOCK_STREAM: 1>                               │                   │
+helix-cognee  | │ │ source_address = None                                                      │                   │
+helix-cognee  | │ │        timeout = 5                                                         │                   │
+helix-cognee  | │ ╰────────────────────────────────────────────────────────────────────────────╯                   │
+helix-cognee  | ╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
+helix-cognee  | ConnectionRefusedError: [Errno 111] Connection refused
+helix-cognee  | 
+helix-cognee  | During handling of the above exception, another exception occurred:
+helix-cognee  | 
+helix-cognee  | ╭─────────────────────────────── Traceback (most recent call last) ────────────────────────────────╮
+helix-cognee  | │ /app/cognee/infrastructure/databases/graph/helixdb/adapter.py:59 in _initialize_client           │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │    56 │   │   │   else:                                                                          │
+helix-cognee  | │    57 │   │   │   │   api_endpoint = None                                                        │
+helix-cognee  | │    58 │   │   │                                                                                  │
+helix-cognee  | │ ❱  59 │   │   │   self.client = helix.Client(                                                    │
+helix-cognee  | │    60 │   │   │   │   local=is_local,                                                            │
+helix-cognee  | │    61 │   │   │   │   port=self.port,                                                            │
+helix-cognee  | │    62 │   │   │   │   **({} if is_local else {"api_endpoint": api_endpoint, "api_key": self.ap   │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │ ╭─────────────────────────────────────────── locals ───────────────────────────────────────────╮ │
+helix-cognee  | │ │ api_endpoint = None                                                                          │ │
+helix-cognee  | │ │     is_local = True                                                                          │ │
+helix-cognee  | │ │         self = <cognee.infrastructure.databases.graph.helixdb.adapter.HelixGraphAdapter      │ │
+helix-cognee  | │ │                object at 0xffffab19bec0>                                                     │ │
+helix-cognee  | │ ╰──────────────────────────────────────────────────────────────────────────────────────────────╯ │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │ /app/.venv/lib/python3.12/site-packages/helix/client.py:82 in __init__                           │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │    79 │   │   │   │   socket.create_connection((hostname, self.h_server_port), timeout=5)        │
+helix-cognee  | │    80 │   │   │   │   print(f"{GHELIX} Helix instance found at '{self.h_server_url}:{self.h_se   │
+helix-cognee  | │    81 │   │   │   except socket.error:                                                           │
+helix-cognee  | │ ❱  82 │   │   │   │   raise Exception(f"{RHELIX} No helix server found at '{self.h_server_url}   │
+helix-cognee  | │    83 │                                                                                          │
+helix-cognee  | │    84 │   def _construct_full_url(self, endpoint: str) -> str:                                   │
+helix-cognee  | │    85 │   │   if self.local:                                                                     │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │ ╭─────────────────────────── locals ────────────────────────────╮                                │
+helix-cognee  | │ │ api_endpoint = ''                                             │                                │
+helix-cognee  | │ │      api_key = None                                           │                                │
+helix-cognee  | │ │     hostname = '127.0.0.1'                                    │                                │
+helix-cognee  | │ │        local = True                                           │                                │
+helix-cognee  | │ │  max_workers = 1                                              │                                │
+helix-cognee  | │ │         port = 6969                                           │                                │
+helix-cognee  | │ │         self = <helix.client.Client object at 0xffff7f18b500> │                                │
+helix-cognee  | │ │      verbose = True                                           │                                │
+helix-cognee  | │ ╰───────────────────────────────────────────────────────────────╯                                │
+helix-cognee  | ╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
+helix-cognee  | Exception: [31m[HELIX][0m No helix server found at 'http://127.0.0.1:6969'
+helix-cognee  | 
+helix-cognee  | During handling of the above exception, another exception occurred:
+helix-cognee  | 
+helix-cognee  | ╭─────────────────────────────── Traceback (most recent call last) ────────────────────────────────╮
+helix-cognee  | │ /app/cognee/api/health.py:118 in check_graph_db                                                  │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │   115 │   │   │   from cognee.infrastructure.databases.graph.config import get_graph_config      │
+helix-cognee  | │   116 │   │   │                                                                                  │
+helix-cognee  | │   117 │   │   │   config = get_graph_config()                                                    │
+helix-cognee  | │ ❱ 118 │   │   │   engine = await get_graph_engine()                                              │
+helix-cognee  | │   119 │   │   │                                                                                  │
+helix-cognee  | │   120 │   │   │   # Test basic operation with actual graph query                                 │
+helix-cognee  | │   121 │   │   │   if hasattr(engine, "query"):                                                   │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │ ╭─────────────────────────────────────────── locals ───────────────────────────────────────────╮ │
+helix-cognee  | │ │           config = GraphConfig(                                                              │ │
+helix-cognee  | │ │                    │   graph_database_provider='helixdb',                                    │ │
+helix-cognee  | │ │                    │   graph_database_url='http://host.docker.internal',                     │ │
+helix-cognee  | │ │                    │   graph_database_name='',                                               │ │
+helix-cognee  | │ │                    │   graph_database_username='',                                           │ │
+helix-cognee  | │ │                    │   graph_database_password='',                                           │ │
+helix-cognee  | │ │                    │   graph_database_port=6969,                                             │ │
+helix-cognee  | │ │                    │                                                                         │ │
+helix-cognee  | │ │                    graph_file_path='/app/cognee/.cognee_system/databases/cognee_graph_helix… │ │
+helix-cognee  | │ │                    │   graph_filename='cognee_graph_helixdb',                                │ │
+helix-cognee  | │ │                    │   graph_model=<class 'cognee.shared.data_models.KnowledgeGraph'>,       │ │
+helix-cognee  | │ │                    │   graph_topology=<class 'cognee.shared.data_models.KnowledgeGraph'>,    │ │
+helix-cognee  | │ │                    │   structured_output_framework='instructor',                             │ │
+helix-cognee  | │ │                    │                                                                         │ │
+helix-cognee  | │ │                    llm_api_key='sk-proj-IVayjXoh2p3V0Vrom3rxhpIpZnOwLy8V3YaX7jU9L24B3vDSZ_l… │ │
+helix-cognee  | │ │                    │   llm_model='openai/gpt-5-mini',                                        │ │
+helix-cognee  | │ │                    │   llm_provider='openai',                                                │ │
+helix-cognee  | │ │                    │   llm_max_tokens='16384',                                               │ │
+helix-cognee  | │ │                    │   embedding_provider='openai',                                          │ │
+helix-cognee  | │ │                    │   embedding_model='openai/text-embedding-3-large',                      │ │
+helix-cognee  | │ │                    │   embedding_dimensions='3072',                                          │ │
+helix-cognee  | │ │                    │   embedding_max_tokens='8191',                                          │ │
+helix-cognee  | │ │                    │   embedding_batch_size='36',                                            │ │
+helix-cognee  | │ │                    │   baml_llm_provider='openai',                                           │ │
+helix-cognee  | │ │                    │   baml_llm_model='gpt-5-mini',                                          │ │
+helix-cognee  | │ │                    │   baml_llm_api_key='your_api_key',                                      │ │
+helix-cognee  | │ │                    │   db_provider='sqlite',                                                 │ │
+helix-cognee  | │ │                    │   db_name='cognee_db',                                                  │ │
+helix-cognee  | │ │                    │   vector_db_provider='helixdb',                                         │ │
+helix-cognee  | │ │                    │   vector_db_url='http://host.docker.internal:6969',                     │ │
+helix-cognee  | │ │                    │   migration_db_path='/path/to/migration/directory',                     │ │
+helix-cognee  | │ │                    │   migration_db_name='migration_database.sqlite',                        │ │
+helix-cognee  | │ │                    │   migration_db_provider='sqlite',                                       │ │
+helix-cognee  | │ │                    │   accept_local_file_path='True',                                        │ │
+helix-cognee  | │ │                    │   allow_http_requests='True',                                           │ │
+helix-cognee  | │ │                    │   allow_cypher_query='True',                                            │ │
+helix-cognee  | │ │                    │   raise_incremental_loading_errors='True',                              │ │
+helix-cognee  | │ │                    │   require_authentication='False',                                       │ │
+helix-cognee  | │ │                    │   enable_backend_access_control='False',                                │ │
+helix-cognee  | │ │                    │   cognee_cloud_api_url='http://localhost:8001',                         │ │
+helix-cognee  | │ │                    │   cognee_cloud_auth_token='your-api-key',                               │ │
+helix-cognee  | │ │                    │   ui_app_url='http://localhost:3000',                                   │ │
+helix-cognee  | │ │                    │   env='local',                                                          │ │
+helix-cognee  | │ │                    │   tokenizers_parallelism='false',                                       │ │
+helix-cognee  | │ │                    │   litellm_log='ERROR'                                                   │ │
+helix-cognee  | │ │                    )                                                                         │ │
+helix-cognee  | │ │                e = OSError("HelixDB connection error: \x1b[31m[HELIX]\x1b[0m No helix server │ │
+helix-cognee  | │ │                    found at 'http://127.0.0.1:6969'")                                        │ │
+helix-cognee  | │ │ get_graph_config = <functools._lru_cache_wrapper object at 0xffffa54b6b90>                   │ │
+helix-cognee  | │ │    response_time = 0                                                                         │ │
+helix-cognee  | │ │             self = <cognee.api.health.HealthChecker object at 0xffff899151c0>                │ │
+helix-cognee  | │ │       start_time = 1764847330.5350087                                                        │ │
+helix-cognee  | │ ╰──────────────────────────────────────────────────────────────────────────────────────────────╯ │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │ /app/cognee/infrastructure/databases/graph/get_graph_engine.py:15 in get_graph_engine            │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │    12 │   # Get appropriate graph configuration based on current async context                   │
+helix-cognee  | │    13 │   config = get_graph_context_config()                                                    │
+helix-cognee  | │    14 │                                                                                          │
+helix-cognee  | │ ❱  15 │   graph_client = create_graph_engine(**config)                                           │
+helix-cognee  | │    16 │                                                                                          │
+helix-cognee  | │    17 │   # Async functions can't be cached. After creating and caching the graph engine         │
+helix-cognee  | │    18 │   # handle all necessary async operations for different graph types bellow.              │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │ ╭────────────────────────────────────────── locals ───────────────────────────────────────────╮  │
+helix-cognee  | │ │ config = {                                                                                  │  │
+helix-cognee  | │ │          │   'graph_database_provider': 'helixdb',                                          │  │
+helix-cognee  | │ │          │   'graph_database_url': 'http://host.docker.internal',                           │  │
+helix-cognee  | │ │          │   'graph_database_name': '',                                                     │  │
+helix-cognee  | │ │          │   'graph_database_username': '',                                                 │  │
+helix-cognee  | │ │          │   'graph_database_password': '',                                                 │  │
+helix-cognee  | │ │          │   'graph_database_port': 6969,                                                   │  │
+helix-cognee  | │ │          │   'graph_file_path': '/app/cognee/.cognee_system/databases/cognee_graph_helixdb' │  │
+helix-cognee  | │ │          }                                                                                  │  │
+helix-cognee  | │ ╰─────────────────────────────────────────────────────────────────────────────────────────────╯  │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │ /app/cognee/infrastructure/databases/graph/get_graph_engine.py:92 in create_graph_engine         │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │    89 │   │                                                                                      │
+helix-cognee  | │    90 │   │   from .helixdb.adapter import HelixGraphAdapter                                     │
+helix-cognee  | │    91 │   │                                                                                      │
+helix-cognee  | │ ❱  92 │   │   return HelixGraphAdapter(                                                          │
+helix-cognee  | │    93 │   │   │   url=graph_database_url,                                                        │
+helix-cognee  | │    94 │   │   │   port=graph_database_port,                                                      │
+helix-cognee  | │    95 │   │   │   api_key=graph_database_password,                                               │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │ ╭─────────────────────────────────────── locals ────────────────────────────────────────╮        │
+helix-cognee  | │ │     graph_database_name = ''                                                          │        │
+helix-cognee  | │ │ graph_database_password = ''                                                          │        │
+helix-cognee  | │ │     graph_database_port = 6969                                                        │        │
+helix-cognee  | │ │ graph_database_provider = 'helixdb'                                                   │        │
+helix-cognee  | │ │      graph_database_url = 'http://host.docker.internal'                               │        │
+helix-cognee  | │ │ graph_database_username = ''                                                          │        │
+helix-cognee  | │ │         graph_file_path = '/app/cognee/.cognee_system/databases/cognee_graph_helixdb' │        │
+helix-cognee  | │ ╰───────────────────────────────────────────────────────────────────────────────────────╯        │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │ /app/cognee/infrastructure/databases/graph/helixdb/adapter.py:39 in __init__                     │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │    36 │   │   self.api_key = api_key                                                             │
+helix-cognee  | │    37 │   │   self.executor = ThreadPoolExecutor()                                               │
+helix-cognee  | │    38 │   │   self.client: Optional[helix.Client] = None                                         │
+helix-cognee  | │ ❱  39 │   │   self._initialize_client()                                                          │
+helix-cognee  | │    40 │                                                                                          │
+helix-cognee  | │    41 │   def _initialize_client(self) -> None:                                                  │
+helix-cognee  | │    42 │   │   try:                                                                               │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │ ╭─────────────────────────────────────────── locals ───────────────────────────────────────────╮ │
+helix-cognee  | │ │ api_key = ''                                                                                 │ │
+helix-cognee  | │ │    port = 6969                                                                               │ │
+helix-cognee  | │ │    self = <cognee.infrastructure.databases.graph.helixdb.adapter.HelixGraphAdapter object at │ │
+helix-cognee  | │ │           0xffffab19bec0>                                                                    │ │
+helix-cognee  | │ │     url = 'http://host.docker.internal'                                                      │ │
+helix-cognee  | │ ╰──────────────────────────────────────────────────────────────────────────────────────────────╯ │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │ /app/cognee/infrastructure/databases/graph/helixdb/adapter.py:71 in _initialize_client           │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │    68 │   │   │   raise ImportError("helix-py is not installed")                                 │
+helix-cognee  | │    69 │   │   except Exception as e:                                                             │
+helix-cognee  | │    70 │   │   │   logger.error(f"HelixDB init failed: {e}")                                      │
+helix-cognee  | │ ❱  71 │   │   │   raise EnvironmentError(f"HelixDB connection error: {e}")                       │
+helix-cognee  | │    72 │                                                                                          │
+helix-cognee  | │    73 │   async def query(self, query: str, params: Optional[dict] = None) -> Any:               │
+helix-cognee  | │    74 │   │   """                                                                                │
+helix-cognee  | │                                                                                                  │
+helix-cognee  | │ ╭─────────────────────────────────────────── locals ───────────────────────────────────────────╮ │
+helix-cognee  | │ │ api_endpoint = None                                                                          │ │
+helix-cognee  | │ │     is_local = True                                                                          │ │
+helix-cognee  | │ │         self = <cognee.infrastructure.databases.graph.helixdb.adapter.HelixGraphAdapter      │ │
+helix-cognee  | │ │                object at 0xffffab19bec0>                                                     │ │
+helix-cognee  | │ ╰──────────────────────────────────────────────────────────────────────────────────────────────╯ │
+helix-cognee  | ╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
+helix-cognee  | OSError: HelixDB connection error: [31m[HELIX][0m No helix server found at 'http://127.0.0.1:6969'
+helix-cognee  | 
+helix-cognee  | 
+helix-cognee  | 2025-12-04T11:22:10.674338 [error    ] HelixDB init failed: [HELIX] No helix server found at 'http://127.0.0.1:6969' [HelixDBAdapter]
+helix-cognee  | 
+helix-cognee  | 2025-12-04T11:22:10.674524 [error    ] HelixDB connection error: [HELIX] No helix server found at 'http://127.0.0.1:6969' [cognee.shared.logging_utils]
+helix-cognee  | 
+helix-cognee  | 2025-12-04T11:22:10.674572 [error    ] Connection to Embedding handler could not be established. [cognee.shared.logging_utils]
