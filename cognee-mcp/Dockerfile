@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1.4
 # Use a Python image with uv pre-installed
 FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim AS uv
 
@@ -30,7 +31,7 @@ RUN apt-get update && apt-get install -y \
 COPY ./cognee-mcp/pyproject.toml ./cognee-mcp/uv.lock ./cognee-mcp/entrypoint.sh ./
 
 # Install the project's dependencies using the lockfile and settings
-RUN --mount=type=cache,id=cognee-mcp-uvcache \
+RUN --mount=type=cache,id=railway-cache-cognee-mcp-uv,target=/root/.cache/uv \
     uv sync --frozen --no-install-project --no-dev --no-editable
 
 # Copy Alembic configuration
@@ -40,7 +41,7 @@ COPY alembic/ /app/alembic
 # Then, add the rest of the project source code and install it
 # Installing separately from its dependencies allows optimal layer caching
 COPY ./cognee-mcp /app
-RUN --mount=type=cache,id=cognee-mcp-uvcache \
+RUN --mount=type=cache,id=railway-cache-cognee-mcp-uv,target=/root/.cache/uv \
     uv sync --frozen --no-dev --no-editable
 
 FROM python:3.12-slim-bookworm
