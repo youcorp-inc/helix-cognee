@@ -1,12 +1,19 @@
 [project]
-name = "congee"
+name = "helixdb"
 queries = "./db/"
-
-[local.cognee]
-build_mode = "debug"
+container_runtime = "docker"
 
 [local.dev]
 port = 6969
-build_mode = "debug"
+build_mode = "dev"
 
-[cloud]
+[local.cognee]
+port = 6969
+build_mode = "dev"
+
+[cloud.boardy.helix]
+cluster_id = "1f0d5284-148b-6a99-8764-010203040506"
+region = "us-east-1"
+build_mode = "release"
+
+[cloud.boardy.helix.env_vars]
