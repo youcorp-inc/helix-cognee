@@ -36,11 +36,13 @@ class GraphConfig(BaseSettings):
     # and determine default graph db file and path based on this parameter if no values are provided
     graph_database_provider: str = Field("kuzu", env="GRAPH_DATABASE_PROVIDER")
 
-    graph_database_url: str = ""
-    graph_database_name: str = ""
-    graph_database_username: str = ""
-    graph_database_password: str = ""
-    graph_database_port: int = 123
+    # Explicitly map environment variables to ensure they are read correctly
+    # Pydantic Settings should auto-map, but explicit env parameters ensure reliability
+    graph_database_url: str = Field(default="", env="GRAPH_DATABASE_URL")
+    graph_database_name: str = Field(default="", env="GRAPH_DATABASE_NAME")
+    graph_database_username: str = Field(default="", env="GRAPH_DATABASE_USERNAME")
+    graph_database_password: str = Field(default="", env="GRAPH_DATABASE_PASSWORD")
+    graph_database_port: int = Field(default=123, env="GRAPH_DATABASE_PORT")
     graph_file_path: str = ""
     graph_filename: str = ""
     graph_model: object = KnowledgeGraph
