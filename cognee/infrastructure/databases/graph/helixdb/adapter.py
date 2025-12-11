@@ -43,7 +43,7 @@ class HelixGraphAdapter(GraphDBInterface):
             url_lower = (self.url or "").lower()
             # Check if URL contains host.docker.internal - if so, always treat as remote
             is_docker_host = "host.docker.internal" in url_lower
-            
+
             # Determine if connection is local:
             # - If host.docker.internal, always remote (even without api_key)
             # - Otherwise, local only if no api_key AND URL contains localhost/127.0.0.1
@@ -57,9 +57,12 @@ class HelixGraphAdapter(GraphDBInterface):
             # When remote, construct full URL with port if not already included
             if not is_local:
                 parsed = urlparse(self.url)
-                # If port is not in URL, add it
-                if not parsed.port and self.port:
-                    netloc = f"{parsed.hostname}:{self.port}" if parsed.hostname else f":{self.port}"
+                # Only append port for docker internal hosts (which need explicit port)
+                # Cloud services like Railway use standard HTTPS (443) and route internally
+                if is_docker_host and not parsed.port and self.port:
+                    netloc = (
+                        f"{parsed.hostname}:{self.port}" if parsed.hostname else f":{self.port}"
+                    )
                 else:
                     netloc = parsed.netloc
                 # Ensure api_endpoint is just the base URL (scheme + netloc) without path
@@ -68,11 +71,24 @@ class HelixGraphAdapter(GraphDBInterface):
             else:
                 api_endpoint = None
 
-            self.client = helix.Client(
-                local=is_local,
-                port=self.port,
-                **({} if is_local else {"api_endpoint": api_endpoint, "api_key": self.api_key}),
-            )
+            # Only pass port for local or docker connections
+            # Cloud services like Railway use standard HTTPS (443)
+            if is_local:
+                self.client = helix.Client(local=True, port=self.port)
+            elif is_docker_host:
+                self.client = helix.Client(
+                    local=False,
+                    port=self.port,
+                    api_endpoint=api_endpoint,
+                    api_key=self.api_key,
+                )
+            else:
+                # Remote cloud service - don't pass port
+                self.client = helix.Client(
+                    local=False,
+                    api_endpoint=api_endpoint,
+                    api_key=self.api_key,
+                )
 
             mode = "local" if is_local else "remote"
             logger.info(f"HelixDB client initialized: {mode} at {self.url}:{self.port}")
