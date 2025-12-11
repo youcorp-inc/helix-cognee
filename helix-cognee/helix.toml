@@ -14,6 +14,6 @@ build_mode = "dev"
 [cloud.boardy.helix]
 cluster_id = "1f0d5284-148b-6a99-8764-010203040506"
 region = "us-east-1"
-build_mode = "release"
+build_mode = "dev"
 
 [cloud.boardy.helix.env_vars]
