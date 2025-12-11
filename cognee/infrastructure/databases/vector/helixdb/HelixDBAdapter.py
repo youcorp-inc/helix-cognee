@@ -58,19 +58,35 @@ class HelixDBAdapter(VectorDBInterface):
             # When remote, construct clean base URL (scheme + netloc) without path
             # The helix client will append paths/queries, so we need a clean base URL
             if not is_local:
-                # Ensure port is in netloc if not already there
-                if not port:
+                # Only append port for docker internal hosts (which need explicit port)
+                # Cloud services like Railway use standard HTTPS (443) and route internally
+                if is_docker_host and not port:
                     port = 6969
-                netloc = f"{parsed.hostname}:{port}" if parsed.hostname else f":{port}"
+                    netloc = f"{parsed.hostname}:{port}" if parsed.hostname else f":{port}"
+                else:
+                    netloc = parsed.netloc
                 api_endpoint = urlunparse((parsed.scheme, netloc, "", "", "", ""))
             else:
                 api_endpoint = None
 
-            self.connection = helix.Client(
-                local=is_local,
-                port=port if port else 6969,
-                **({} if is_local else {"api_endpoint": api_endpoint, "api_key": self.api_key}),
-            )
+            # Only pass port for local or docker connections
+            # Cloud services like Railway use standard HTTPS (443)
+            if is_local:
+                self.connection = helix.Client(local=True, port=port if port else 6969)
+            elif is_docker_host:
+                self.connection = helix.Client(
+                    local=False,
+                    port=port if port else 6969,
+                    api_endpoint=api_endpoint,
+                    api_key=self.api_key,
+                )
+            else:
+                # Remote cloud service - don't pass port
+                self.connection = helix.Client(
+                    local=False,
+                    api_endpoint=api_endpoint,
+                    api_key=self.api_key,
+                )
 
             mode = "local" if is_local else "remote"
             logger.info(f"HelixDB client initialized: {mode} at {self.url}")
