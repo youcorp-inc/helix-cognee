@@ -1,20 +1,19 @@
 import asyncio
-import asyncio
 import json
-import helix
 from concurrent.futures import ThreadPoolExecutor
+from typing import Any, Dict, List, Optional, cast
 from urllib.parse import urlparse, urlunparse
-from typing import List, Optional, cast, Dict, Any
 from uuid import UUID
 
+import helix
 from helix.client import HelixNoValueFoundError
 
+from cognee.infrastructure.databases.exceptions import MissingQueryParameterError
 from cognee.infrastructure.databases.vector.models.ScoredResult import ScoredResult
 from cognee.infrastructure.databases.vector.vector_db_interface import VectorDBInterface
-from cognee.infrastructure.databases.exceptions import MissingQueryParameterError
 from cognee.infrastructure.engine import DataPoint
 from cognee.infrastructure.engine.utils import parse_id
-from cognee.modules.storage.utils import get_own_properties, JSONEncoder
+from cognee.modules.storage.utils import JSONEncoder, get_own_properties
 from cognee.shared.logging_utils import get_logger
 
 from ..embeddings.EmbeddingEngine import EmbeddingEngine
@@ -44,7 +43,7 @@ class HelixDBAdapter(VectorDBInterface):
             url_lower = (self.url or "http://localhost:6969").lower()
             # Check if URL contains host.docker.internal - if so, always treat as remote
             is_docker_host = "host.docker.internal" in url_lower
-            
+
             # Determine if connection is local:
             # - If host.docker.internal, always remote (even without api_key)
             # - Otherwise, local only if no api_key AND URL contains localhost/127.0.0.1
